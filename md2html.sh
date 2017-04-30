@@ -1,6 +1,6 @@
 #!/bin/sh
 # https://github.com/hkim0331/md2html.git
-# VERSION: 0.1, 2017-04-30.
+# VERSION: 0.1
 
 if [ "$#" = "0" ]; then
   echo usage: $0 file1.md file2.md ...

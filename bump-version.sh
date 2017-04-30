@@ -34,7 +34,7 @@ for i in ${FILES}; do
     if [[ $i =~ bak$  ]]; then
         continue
     fi
-    ${SED} -i.bak "s/VERSION: .*$/VERSION: ${VERSION}, ${TODAY}./" $i
+    ${SED} -i.bak "s/^# VERSION:.*$/# VERSION: ${VERSION}/" $i
 done
 
 # example of sed 'c' command.
