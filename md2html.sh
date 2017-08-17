@@ -1,16 +1,19 @@
 #!/bin/sh
 # https://github.com/hkim0331/md2html.git
-# VERSION: 0.1
+# VERSION: 0.2
 
-if [ "$#" = "0" ]; then
-  echo usage: $0 file1.md file2.md ...
+function usage()
+{
+  echo usage: $0 [--dest dir] file1.md file2.md ...
   exit 1
-fi
+}
+
+DEST="../public"
 
 function md2html()
 {
     TITLE=`basename $1 .md`
-    HTML=../public/${TITLE}.html
+    HTML=${DEST}/${TITLE}.html
 
     pandoc  -o ${HTML} -f markdown -t html -c dummy.css $1
     gsed -i.bak \
@@ -28,8 +31,15 @@ function md2html()
     ${HTML}
 }
 
-while (( "$#" )); do
-    md2html $1;
+while [ "$#" -ne "0"  ]; do
+    if [ "$1" = "--help" ]; then
+        usage;
+    elif [ "$1" = "--dest" ]; then
+        shift
+        DEST=$1
+    else
+        md2html $1;
+    fi
     shift
 done
 
