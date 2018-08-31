@@ -4,16 +4,14 @@
 #
 # 2018-08-31 thanks bootstrap 4.1.3
 
-usage()
-{
+usage() {
   echo usage: $0 [--dest dir] file1.md file2.md ...
   exit 1
 }
 
 DEST="../public"
 
-md2html()
-{
+md2html() {
     TITLE=`basename $1 .md`
     HTML=${DEST}/${TITLE}.html
 
