@@ -1,13 +1,15 @@
 #!/bin/sh
 # https://github.com/hkim0331/md2html.git
-# VERSION: 0.1
+# VERSION: 0.2
+#
+# 2018-08-31 Bootstrap 4.1.3
 
 if [ "$#" = "0" ]; then
   echo usage: $0 file1.md file2.md ...
   exit 1
 fi
 
-function md2html()
+md2html()
 {
     TITLE=`basename $1 .md`
     HTML=../public/${TITLE}.html
@@ -20,7 +22,7 @@ function md2html()
   <meta name='viewport' content='width=device-width, initial-scale=1.0' />"\
     -e "s/<title><\/title>/<title>${TITLE}<\/title>/" \
     -e '/<link/c\
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">' \
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">' \
     -e 's/<body>/<body><div class="container">/' \
     -e 's/<table>/<div class="table-responsive"><table class="table table-striped table-hover">/g' \
     -e 's/<\/table>/<\/table><\/div>/g' \
