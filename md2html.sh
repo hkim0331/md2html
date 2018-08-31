@@ -2,17 +2,20 @@
 # https://github.com/hkim0331/md2html.git
 # VERSION: 0.2
 #
-# 2018-08-31 Bootstrap 4.1.3
+# 2018-08-31 thanks bootstrap 4.1.3
 
-if [ "$#" = "0" ]; then
-  echo usage: $0 file1.md file2.md ...
+usage()
+{
+  echo usage: $0 [--dest dir] file1.md file2.md ...
   exit 1
-fi
+}
+
+DEST="../public"
 
 md2html()
 {
     TITLE=`basename $1 .md`
-    HTML=../public/${TITLE}.html
+    HTML=${DEST}/${TITLE}.html
 
     pandoc  -o ${HTML} -f markdown -t html -c dummy.css $1
     gsed -i.bak \
@@ -30,8 +33,15 @@ md2html()
     ${HTML}
 }
 
-while (( "$#" )); do
-    md2html $1;
+while [ "$#" -ne "0"  ]; do
+    if [ "$1" = "--help" ]; then
+        usage;
+    elif [ "$1" = "--dest" ]; then
+        shift
+        DEST=$1
+    else
+        md2html $1;
+    fi
     shift
 done
 
